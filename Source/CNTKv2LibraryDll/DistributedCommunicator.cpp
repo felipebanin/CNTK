@@ -362,7 +362,16 @@ namespace CNTK
         {
             m_nccl.reset(new NcclComm(DeviceDescriptor::UseDefaultDevice().Id(), m_mpi));
         }
-
+        
+        if (m_nccl->IsSupported())
+        {
+            fprintf(stderr, "NCCL is supported\n");
+        }
+        else
+        {
+            fprintf(stderr, "NCCL is NOT supported\n");
+        }
+    
         // For all values residing on GPU initiate async transfer to CPU buffers if needed
         CopyDataFromGPUToCPU(valuesToAggregate);
 
